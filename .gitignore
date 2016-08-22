@@ -2,6 +2,11 @@
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
+promises.jpg
+info.plist
+Promise.h
+
+
 ## Build generated
 build/
 DerivedData/
