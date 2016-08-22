@@ -195,19 +195,16 @@ public class Promise<T>{
     }
     
     private func onFulfilled(value:T)->Void {
-        if let fulfilmentHandler = self.fulfilmentHandler {
-            self.rejectionHandler = nil;
-            self.fulfilmentHandler = nil;
-            
-            let fulfillmentPromise:Promise<T>?
+        if let handler = self.fulfilmentHandler {
+            let handlerPromise:Promise<T>?
             do {
-                fulfillmentPromise =  try fulfilmentHandler(value)
+                handlerPromise =  try handler(value)
             } catch {
                 onRejected(reason:error)
                 return
             }
             
-            let _ = fulfillmentPromise!.then(onFulfilled:{value in
+            let _ = handlerPromise!.then(onFulfilled:{value in
                     self.chainPromise?.onFulfilled(value: value)
                 }, onRejected:{reason in
                     self.chainPromise?.onRejected(reason: reason)
@@ -221,12 +218,10 @@ public class Promise<T>{
     }
     
     private func onRejected(reason:Error)->Void{
-        if let rejectionHandler = self.rejectionHandler {
-            self.rejectionHandler = nil;
-            self.fulfilmentHandler = nil;
-            let rejectionPromise = rejectionHandler(reason)
+        if let handler = self.rejectionHandler {
+            let handlerPromise = handler(reason)
             
-            let _ = rejectionPromise.then(onFulfilled:{value in
+            let _ = handlerPromise.then(onFulfilled:{value in
                     self.chainPromise?.onFulfilled(value: value)
                 }, onRejected:{reason in
                     self.chainPromise?.onRejected(reason: reason)
