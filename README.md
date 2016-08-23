@@ -1,4 +1,4 @@
-#es6-promise
+#[es6-promise](https://github.com/efimster/es6-promises/raw/master/promises.jpg)
 
 **Swift polyfill of the [ES6 Promise](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
 
