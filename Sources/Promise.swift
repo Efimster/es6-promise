@@ -9,12 +9,12 @@
 public class Promise<T>{
     //MARK: properties
     
-    public private(set) var resolvedValue:T? = nil
-    public private(set) var rejectReason:Error? = nil
-    public private(set) var state:State = .pending
-    var fulfilmentHandler:((T)throws->Promise<T>)?
-    var rejectionHandler:((Error)->Promise<T>)?
-    var chainPromise:Promise<T>?
+    internal private(set) var resolvedValue:T? = nil
+    internal private(set) var rejectReason:Error? = nil
+    internal private(set) var state:State = .pending
+    private var fulfilmentHandler:((T)throws->Promise<T>)?
+    private var rejectionHandler:((Error)->Promise<T>)?
+    private var chainPromise:Promise<T>?
     
     //MARK: static functions
     
